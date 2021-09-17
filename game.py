@@ -52,9 +52,11 @@ class Car(pygame.sprite.Sprite):
         self.moves = ['forward', 'left', 'right', 'backward']
 
     def move(self,move):
+        change_degree = 0
         for i in range(1,3):
             if move == self.moves[i]:
                 self.degree += game.changeDegree * [-1, 1][i-1]
+                change_degree = game.changeDegree * [-1, 1][i-1]
 
         if move == self.moves[0]:
             self.speed += game.changeSpeed * 1
@@ -64,7 +66,8 @@ class Car(pygame.sprite.Sprite):
 
         self.rect.x += self.speed * math.cos(math.radians(self.degree))
         self.rect.y += self.speed * math.sin(math.radians(self.degree))
-        print(self.rect.center)
+
+        self.image = pygame.transform.rotate(self.image,change_degree*-1)
 
 if __name__ == '__main__':
     game = Game()
@@ -83,7 +86,7 @@ if __name__ == '__main__':
         game.clock.tick(game.fps)  
 
     for i in range(10):
-        game.cars[0].move('right')
+        game.cars[0].move('left')
         game.cars[0].move('forward')
         game.update_screen()
         game.clock.tick(game.fps)  
