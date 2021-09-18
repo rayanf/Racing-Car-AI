@@ -45,7 +45,7 @@ class Game:
 
     def update_screen(self):
         self.screen.fill((255, 255, 102))
-        # self.screen.blit(pygame.image.load('track.png'),(0,0))
+        self.screen.blit(pygame.image.load('track.png'),(0,0))
         self.screen.blit(self.cars[0].rotatedimage,self.cars[0].rect.center)
 
         # self.carsObjects.draw(self.screen)        
@@ -85,8 +85,8 @@ class Car(pygame.sprite.Sprite):
             if self.speed > 0:
                 self.speed += game.changeSpeed * -1
 
-        self.rect.x += self.speed * math.cos(math.radians(self.degree))
-        self.rect.y += self.speed * math.sin(math.radians(self.degree))
+        self.rect.x += round(self.speed * math.cos(math.radians(self.degree)))
+        self.rect.y += round(self.speed * math.sin(math.radians(self.degree)))
 
         self.rotatedimage = pygame.transform.rotate(self.image,self.degree*-1)
 
